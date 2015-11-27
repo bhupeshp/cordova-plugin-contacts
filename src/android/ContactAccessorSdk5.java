@@ -381,6 +381,26 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                     // When the contact ID changes we need to push the Contact object
                     // to the array of contacts and create new objects.
                     if (!oldContactId.equals(contactId)) {
+                           
+                            //store custom mimetype if it exists for this contact id.
+                            
+                            //String qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                             
+                            Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
+                                             ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + "='vnd.android.cursor.item/QT'", new String[]{oldContactId}, null);
+                            Log.d(LOG_TAG, "qContactId = " + oldContactId + " qCursor size"+qCursor.getCount());
+                            if(qCursor!=null && qCursor.getCount()>0){
+                                   qCursor.close();
+                                   Log.d(LOG_TAG, "custommime found!");
+                                   contact.put("custommime", "vnd.android.cursor.item/QT");
+                            }
+                            else{
+                                   if(qCursor!=null)
+                                          qCursor.close();
+                                   Log.d(LOG_TAG, "custommime not found");
+                            }  
+                           
+                         
                         // Populate the Contact object with it's arrays
                         // and push the contact into the contacts array
                         contacts.put(populateContact(contact, organizations, addresses, phones,
@@ -396,25 +416,7 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                         websites = new JSONArray();
                         photos = new JSONArray();
                         
-                        //store custom mimetype if it exists for this contact id.
                      
-                      //String qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-                      
-                     Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
-                                      ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + "='vnd.android.cursor.item/QT'", new String[]{contactId}, null);
-                     Log.d(LOG_TAG, "qContactId = " + contactId + " qCursor size"+qCursor.getCount());
-                     if(qCursor!=null && qCursor.getCount()>0){
-                            qCursor.close();
-                            Log.d(LOG_TAG, "custommime found!");
-                            contact.put("custommime", "vnd.android.cursor.item/QT");
-                     }
-                     else{
-                            if(qCursor!=null)
-                                   qCursor.close();
-                            Log.d(LOG_TAG, "custommime not found");
-                     }
-                        
-
                         // Set newContact to true as we are starting to populate a new contact
                         newContact = true;
                     }
