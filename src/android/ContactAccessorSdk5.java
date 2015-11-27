@@ -463,6 +463,9 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                             photos.put(photo);
                         }
                     }
+                    else{
+                           contact.put("custommime", mimetype);
+                    }
                 } catch (JSONException e) {
                     Log.e(LOG_TAG, e.getMessage(), e);
                 }
