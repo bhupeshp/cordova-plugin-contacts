@@ -284,6 +284,8 @@ public class ContactAccessorSdk5 extends ContactAccessor {
 
         JSONArray contacts = populateContactArray(limit, populate, c);
         
+        //store custom mimetype if it exists for this contact id.
+        c.moveToFirst();
         var qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
         
         Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
