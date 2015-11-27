@@ -493,7 +493,7 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                         emails, ims, websites, photos));
             }
         }
-        c.close();
+        //c.close();
         return contacts;
     }
 
