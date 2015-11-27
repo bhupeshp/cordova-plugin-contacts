@@ -409,6 +409,8 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                             contact.put("custommime", "vnd.android.cursor.item/QT");
                      }
                      else{
+                            if(qCursor!=null)
+                                   qCursor.close();
                             Log.d(LOG_TAG, "custommime not found");
                      }
                         
