@@ -286,7 +286,7 @@ public class ContactAccessorSdk5 extends ContactAccessor {
         
         //store custom mimetype if it exists for this contact id.
         c.moveToFirst();
-        var qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+        String qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
         
         Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
                         ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + "='vnd.android.cursor.item/QT'", new String[]{qContactId}, null);
