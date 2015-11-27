@@ -284,17 +284,6 @@ public class ContactAccessorSdk5 extends ContactAccessor {
 
         JSONArray contacts = populateContactArray(limit, populate, c);
         
-        //store custom mimetype if it exists for this contact id.
-        c.moveToFirst();
-        String qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
-        
-        Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
-                        ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + "='vnd.android.cursor.item/QT'", new String[]{qContactId}, null);
-       Log.d(LOG_TAG, "qContactId = " + qContactId + " qCursor size"+qCursor.getCount());
-       if(qCursor!=null && qCursor.getCount()>0){
-              qCursor.close();
-              contacts.put("custommime", "vnd.android.cursor.item/QT");
-       } 
        
         if (!c.isClosed()) {
             c.close();
@@ -406,6 +395,23 @@ public class ContactAccessorSdk5 extends ContactAccessor {
                         ims = new JSONArray();
                         websites = new JSONArray();
                         photos = new JSONArray();
+                        
+                        //store custom mimetype if it exists for this contact id.
+                     
+                      //String qContactId = c.getString(c.getColumnIndex(ContactsContract.Data.CONTACT_ID));
+                      
+                     Cursor qCursor = mApp.getActivity().getContentResolver().query(ContactsContract.Data.CONTENT_URI, null,
+                                      ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = ? AND " + ContactsContract.Data.MIMETYPE + "='vnd.android.cursor.item/QT'", new String[]{contactId}, null);
+                     Log.d(LOG_TAG, "qContactId = " + contactId + " qCursor size"+qCursor.getCount());
+                     if(qCursor!=null && qCursor.getCount()>0){
+                            qCursor.close();
+                            Log.d(LOG_TAG, "custommime found!");
+                            contact.put("custommime", "vnd.android.cursor.item/QT");
+                     }
+                     else{
+                            Log.d(LOG_TAG, "custommime not found");
+                     }
+                        
 
                         // Set newContact to true as we are starting to populate a new contact
                         newContact = true;
