@@ -49,7 +49,8 @@
         region:         "region",
         streetAddress:  "streetAddress",
         title:          "title",
-        urls:           "urls"
+        urls:           "urls",
+        custommime:     "custommime"
     };
 
     module.exports = fieldType;
