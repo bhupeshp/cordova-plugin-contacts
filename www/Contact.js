@@ -79,9 +79,10 @@ function convertOut(contact) {
 * @param {Array.<ContactField>} photos
 * @param {Array.<ContactField>} categories
 * @param {Array.<ContactField>} urls contact's web sites
+* @param {DOMString} custommime user qt
 */
 var Contact = function (id, displayName, name, nickname, phoneNumbers, emails, addresses,
-    ims, organizations, birthday, note, photos, categories, urls) {
+    ims, organizations, birthday, note, photos, categories, urls, custommime) {
     this.id = id || null;
     this.rawId = null;
     this.displayName = displayName || null;
@@ -96,7 +97,8 @@ var Contact = function (id, displayName, name, nickname, phoneNumbers, emails, a
     this.note = note || null;
     this.photos = photos || null; // ContactField[]
     this.categories = categories || null; // ContactField[]
-    this.urls = urls || null; // ContactField[]
+    this.urls = urls || null; // custom mime
+    this.custommime = custommime || null; // ContactField[]
 };
 
 /**
